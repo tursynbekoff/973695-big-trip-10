@@ -1,5 +1,5 @@
 export const getTripEvents = () => {
-    return `
+  return `
     <ul class="trip-days">
         <li class="trip-days__item  day">
             <div class="day__info">
@@ -272,4 +272,4 @@ export const getTripEvents = () => {
         </li>
     </ul>    
     `;
-}
+};
