@@ -1,11 +1,16 @@
 import {getTripFilterEvents} from './components/menu.js';
 import {getTripEventsFilterForm} from './components/filter.js';
-import {getTripEventAddContent} from './components/route-info.js';
-import {getTripEvents} from './components/card.js';
+import {getTripEventsAdd} from './components/trip-add.js';
+import {getTripEventEdit} from './components/trip-edit.js';
+import {getTripEvent} from './components/trip.js';
+import {generateTrips} from './mock/trip.js';
 
+const TRIP_COUNT = 3;
 const tripInfo = document.querySelector(`.trip-info`);
 const tripControlsMenu = document.querySelector(`.trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
+
+const trips = generateTrips(TRIP_COUNT);
 
 const getTripInfo = function () {
     return `
@@ -17,8 +22,11 @@ const render = (container, template, place) => {
     container.insertAdjacentHTML(place, template);
 };
 
+
 render(tripInfo, getTripInfo(), `afterbegin`);
 render(tripControlsMenu, getTripFilterEvents(), `beforeend`);
 render(tripEvents, getTripEventsFilterForm(), `afterbegin`);
-render(tripEvents, getTripEventAddContent(), `beforeend`);
-render(tripEvents, getTripEvents(), `beforeend`);
+
+// trips.slice(1, 2).forEach((trip) => render(tripEvents, getTripEventsAdd(trip), `beforeend`));
+render(tripEvents, getTripEventEdit(trips[0]), `beforeend`);
+trips.slice(1, 2).forEach((trip) => render(tripEvents, getTripEvent(trip), `beforeend`));

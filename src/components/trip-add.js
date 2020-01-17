@@ -1,6 +1,12 @@
-export const getTripEventAddContent = () => {
-  return `
-    <form class="trip-events__item  event  event--edit" action="#" method="post">
+
+export const getTripEventsAdd = (trip) => {
+    const {city, preposition, activity, options, description, pictureSrc, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price} = trip;
+    const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1)
+    // const additionalOffers = getOffersMarkup(Array.from(options));
+    // const pictures = getPicturesMarkup(Array.from(pictureSrc));
+    // const monthName = MonthNames[startMonth];
+  return (
+    ` <form class="trip-events__item  event  event--edit" action="#" method="post">
         <header class="event__header">
         <div class="event__type-wrapper">
             <label class="event__type  event__type-btn" for="event-type-toggle-1">
@@ -174,6 +180,6 @@ export const getTripEventAddContent = () => {
             </div>
         </section>
         </section>
-    </form>    
-    `;
+    </form>`
+    );
 };
