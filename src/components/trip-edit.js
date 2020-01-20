@@ -1,10 +1,10 @@
 import {MonthNames} from '../const.js';
 const getOffersMarkup = (offers) => {
-    return offers
+  return offers
         .map((offer) => {
-            const str = offer.name.replace(/\s+/g, '')
-            return (
-                `<div class="event__offer-selector">
+          const str = offer.name.replace(/\s+/g, ``);
+          return (
+            `<div class="event__offer-selector">
                     <input class="event__offer-checkbox  visually-hidden" id="event-offer-${str}" type="checkbox" name="event-offer-train">
                     <label class="event__offer-label" for="event-offer-${str}">
                     <span class="event__offer-title">${offer.name}</span>
@@ -12,28 +12,28 @@ const getOffersMarkup = (offers) => {
                     &euro;&nbsp;<span class="event__offer-price">${offer.cost}</span>
                     </label>
                  </div>`
-            );
-        })
-        .join(`\n`);
-}
-
-const getPicturesMarkup = (pictureSrc) => {
-    return pictureSrc
-        .map((src) => {
-            return (
-                `<img class="event__photo" src="${src}" alt="Event photo">`
-            );
+          );
         })
         .join(`\n`);
 };
 
-export const getTripEventEdit = (trip) => {   
-    const {city, preposition, activity, options, description, pictureSrc, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price} = trip;
-    const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1)
-    const additionalOffers = getOffersMarkup(Array.from(options));
-    const pictures = getPicturesMarkup(Array.from(pictureSrc));
-    const monthName = MonthNames[startMonth];
-    return `
+const getPicturesMarkup = (pictureSrc) => {
+  return pictureSrc
+        .map((src) => {
+          return (
+            `<img class="event__photo" src="${src}" alt="Event photo">`
+          );
+        })
+        .join(`\n`);
+};
+
+export const getTripEventEdit = (trip) => {
+  const {city, preposition, activity, options, description, pictureSrc, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price} = trip;
+  const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1);
+  const additionalOffers = getOffersMarkup(Array.from(options));
+  const pictures = getPicturesMarkup(Array.from(pictureSrc));
+  const monthName = MonthNames[startMonth];
+  return `
     <ul class="trip-days">
         <li class="trip-days__item  day">
             <div class="day__info">
@@ -179,7 +179,6 @@ export const getTripEventEdit = (trip) => {
                         <div class="event__photos-container">
                         <div class="event__photos-tape">
                         ${pictures}
-                            
                         </div>
                         </div>
                     </section>

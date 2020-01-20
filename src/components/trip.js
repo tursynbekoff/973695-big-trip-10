@@ -1,36 +1,25 @@
-import { MonthNames } from '../const.js';
+import {MonthNames} from '../const.js';
 const getOffersMarkup = (offers) => {
-    return offers
+  return offers
         .map((offer) => {
-            return (
-                `<li class="event__offer">
+          return (
+            `<li class="event__offer">
                     <span class="event__offer-title">${offer.name}</span>
                     +
                     €&nbsp;<span class="event__offer-price">${offer.cost}</span>
                 </li>`
-            );
-        })
-        .join(`\n`);
-}
-
-const getPicturesMarkup = (pictureSrc) => {
-    return pictureSrc
-        .map((src) => {
-            return (
-                `<img class="event__photo" src="${src}" alt="Event photo">`
-            );
+          );
         })
         .join(`\n`);
 };
 
 export const getTripEvent = (trip) => {
-    const {city, preposition, activity, options, pictureSrc, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price, diffDay, diffHour, diffMinute} = trip;
-    const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1)
-    const additionalOffers = getOffersMarkup(Array.from(options));
-    const pictures = getPicturesMarkup(Array.from(pictureSrc));
-    const monthName = MonthNames[startMonth];
-    const startYearShort = startYear - 2000;
-    return `
+  const {city, preposition, activity, options, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price, diffDay, diffHour, diffMinute} = trip;
+  const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1);
+  const additionalOffers = getOffersMarkup(Array.from(options));
+  const monthName = MonthNames[startMonth];
+
+  return `
         <li class="trip-days__item  day">
             <div class="day__info">
                 <span class="day__counter"></span>

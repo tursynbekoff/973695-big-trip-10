@@ -1,6 +1,5 @@
 export const getTripInfo = function () {
-
-    return `
+  return `
     <h1 class="trip-info__title">Amsterdam &mdash; ... &mdash; Amsterdam</h1>
     `;
 };
