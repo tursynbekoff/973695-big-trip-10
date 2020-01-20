@@ -3,14 +3,11 @@ const getOffersMarkup = (offers) => {
     return offers
         .map((offer) => {
             return (
-                `<div class="event__offer-selector">
-                    <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
-                    <label class="event__offer-label" for="event-offer-train-1">
+                `<li class="event__offer">
                     <span class="event__offer-title">${offer.name}</span>
-                    &plus;
-                    &euro;&nbsp;<span class="event__offer-price">${offer.cost}</span>
-                    </label>
-                 </div>`
+                    +
+                    €&nbsp;<span class="event__offer-price">${offer.cost}</span>
+                </li>`
             );
         })
         .join(`\n`);
@@ -27,7 +24,7 @@ const getPicturesMarkup = (pictureSrc) => {
 };
 
 export const getTripEvent = (trip) => {
-    const { city, preposition, activity, options, description, pictureSrc, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price } = trip;
+    const {city, preposition, activity, options, pictureSrc, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price, diffDay, diffHour, diffMinute} = trip;
     const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1)
     const additionalOffers = getOffersMarkup(Array.from(options));
     const pictures = getPicturesMarkup(Array.from(pictureSrc));
@@ -36,7 +33,7 @@ export const getTripEvent = (trip) => {
     return `
         <li class="trip-days__item  day">
             <div class="day__info">
-                <span class="day__counter">2</span>
+                <span class="day__counter"></span>
                 <time class="day__date" datetime="${startYear}-${startMonth}-${startDay}">${monthName} ${startDay}</time>
             </div>
 
@@ -55,12 +52,16 @@ export const getTripEvent = (trip) => {
                                 —
                                 <time class="event__end-time" datetime="${finallYear}-${finallMonth}-${finallDay}T${finallHour}:${finallMinute}">${finallHour}:${finallMinute}</time>
                             </p>
-                            <p class="event__duration">1H</p>
+                            <p class="event__duration">${diffDay}D ${diffHour}H ${diffMinute}M</p>
                         </div>
 
                         <p class="event__price">
                             €&nbsp;<span class="event__price-value">${price}</span>
                         </p>
+
+                        <ul class="event__selected-offers">
+                            ${additionalOffers}
+                        </ul>
 
                         <button class="event__rollup-btn" type="button">
                             <span class="visually-hidden">Open event</span>

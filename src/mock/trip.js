@@ -16,7 +16,7 @@ const cities = [
     `Mainz`,
     `Berlin`,
     `Kuala Lumpur`,
-    `Aukland`,
+    `Auckland`,
     `Munich`
 ];
 
@@ -25,7 +25,7 @@ const RouteType = {
     'Mainz': 'bus',
     'Berlin': 'train',
     'Kuala Lumpur': 'ship',
-    'Aukland': 'check-in',
+    'Auckland': 'check-in',
     'Munich': 'restaurant'
 };
 
@@ -138,6 +138,20 @@ const getDiffDate = (date1, date2) => {
     return dateDiffDate;
 };
 
+const generateRandomPictures = () => {
+    let pictureArr = [];
+    const randomPictureNumber = getRandomIntegerNumber(1, 3);
+    for (let i = 0; i < randomPictureNumber; i++) {   ///
+        pictureArr[i] = `http://picsum.photos/300/150?r=${Math.random()}`;
+    }
+    return pictureArr;
+}
+
+const getFormateMinutes = (minute) => {
+    const formatedMinutes = String(minute).padStart(2, '0');
+    return formatedMinutes;
+};
+
 const generateTrip = function() {
     const city = cities[getRandomIntegerNumber(0, cities.length)];
     const activity = RouteType[city];
@@ -150,13 +164,6 @@ const generateTrip = function() {
     const price = getRandomIntegerNumber(7, 500);
 
     const setOfOptions = getRandomOptions(options);
-
-    const randomPictureNumber = getRandomIntegerNumber(1, 3);
-    let pictureArr = [];
-
-    for (let i = 0; i < randomPictureNumber; i++) {
-        pictureArr[i] = `http://picsum.photos/300/150?r=${Math.random()}`;
-    }
 
     return {
         city: city,
@@ -176,7 +183,7 @@ const generateTrip = function() {
         finallMonth: finallDate.getMonth() + 1,
         finallYear: finallDate.getYear() + 1900,
 
-        diffMinute: timeDiff.getMinutes(),
+        diffMinute: getFormateMinutes(timeDiff.getMinutes()),
         diffHour: timeDiff.getHours() - 1,
         diffDay: timeDiff.getDate() - 1,
 
@@ -184,7 +191,7 @@ const generateTrip = function() {
         options: setOfOptions,
 
         description: getRandomText(textDescription),
-        pictureSrc: pictureArr
+        pictureSrc: generateRandomPictures()
     }
 };
 

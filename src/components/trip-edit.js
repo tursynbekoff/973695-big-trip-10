@@ -2,10 +2,11 @@ import {MonthNames} from '../const.js';
 const getOffersMarkup = (offers) => {
     return offers
         .map((offer) => {
+            const str = offer.name.replace(/\s+/g, '')
             return (
                 `<div class="event__offer-selector">
-                    <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
-                    <label class="event__offer-label" for="event-offer-train-1">
+                    <input class="event__offer-checkbox  visually-hidden" id="event-offer-${str}" type="checkbox" name="event-offer-train">
+                    <label class="event__offer-label" for="event-offer-${str}">
                     <span class="event__offer-title">${offer.name}</span>
                     &plus;
                     &euro;&nbsp;<span class="event__offer-price">${offer.cost}</span>
