@@ -1,4 +1,6 @@
 import {MonthNames} from '../const.js';
+import {createElement} from '../utils.js';
+
 const getOffersMarkup = (offers) => {
   return offers
         .map((offer) => {
@@ -13,7 +15,7 @@ const getOffersMarkup = (offers) => {
         .join(`\n`);
 };
 
-export const getTripEvent = (trip) => {
+const getTripEvent = (trip) => {
   const {city, preposition, activity, options, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price, diffDay, diffHour, diffMinute} = trip;
   const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1);
   const additionalOffers = getOffersMarkup(Array.from(options));
@@ -63,3 +65,27 @@ export const getTripEvent = (trip) => {
         </li>
     `;
 };
+
+export default class Trip {
+    constructor(trip) {
+        this._trip = trip;
+
+        this._element = null;
+    }
+
+    getTemplate() {
+      return getTripEvent(this._trip);
+    }
+
+    getElement() {
+      if (!this._element) {
+        this._element = createElement(this.getTemplate());
+      }
+
+      return this._element;
+    }
+    
+    removeElement() {
+      this._element = null;
+    }
+}
