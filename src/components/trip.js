@@ -21,8 +21,8 @@ const getTripEvent = (trip) => {
   const additionalOffers = getOffersMarkup(Array.from(options));
   const monthName = MonthNames[startMonth];
 
-  return `
-        <li class="trip-days__item  day">
+  return (
+    `<li class="trip-days__item  day">
             <div class="day__info">
                 <span class="day__counter"></span>
                 <time class="day__date" datetime="${startYear}-${startMonth}-${startDay}">${monthName} ${startDay}</time>
@@ -62,30 +62,30 @@ const getTripEvent = (trip) => {
 
                 
             </ul>
-        </li>
-    `;
+        </li>`
+  );
 };
 
 export default class Trip {
-    constructor(trip) {
-        this._trip = trip;
+  constructor(trip) {
+    this._trip = trip;
 
-        this._element = null;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getTripEvent(this._trip);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
     }
 
-    getTemplate() {
-      return getTripEvent(this._trip);
-    }
+    return this._element;
+  }
 
-    getElement() {
-      if (!this._element) {
-        this._element = createElement(this.getTemplate());
-      }
-
-      return this._element;
-    }
-    
-    removeElement() {
-      this._element = null;
-    }
+  removeElement() {
+    this._element = null;
+  }
 }
