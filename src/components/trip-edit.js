@@ -35,8 +35,8 @@ const getTripEventEdit = (trip) => {
   const additionalOffers = getOffersMarkup(Array.from(options));
   const pictures = getPicturesMarkup(Array.from(pictureSrc));
   const monthName = MonthNames[startMonth];
-  return `
-    <ul class="trip-days">
+  return (
+    `<ul class="trip-days">
         <li class="trip-days__item  day">
             <div class="day__info">
                 <span class="day__counter">1</span>
@@ -191,31 +191,30 @@ const getTripEventEdit = (trip) => {
                 
             </ul>
         </li>
-    </ul>    
-    `;
+    </ul>`
+  );
 };
 
 export default class TripEdit {
-    constructor(trip) {
-        this._trip = trip;
+  constructor(trip) {
+    this._trip = trip;
 
-        this._element = null;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getTripEventEdit(this._trip);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
     }
 
-    getTemplate() {
-      return getTripEventEdit(this._trip);
-    }
+    return this._element;
+  }
 
-    getElement() {
-      if (!this._element) {
-        this._element = createElement(this.getTemplate());
-        console.log(this._element);
-      }
-
-      return this._element;
-    }
-    
-    removeElement() {
-      this._element = null;
-    }
+  removeElement() {
+    this._element = null;
+  }
 }

@@ -1,9 +1,9 @@
 import {createElement} from '../utils.js';
 
 const getTripInfo = function () {
-  return `
-    <h1 class="trip-info__title">Amsterdam &mdash; ... &mdash; Amsterdam</h1>
-    `;
+  return (
+    `<h1 class="trip-info__title">Amsterdam &mdash; ... &mdash; Amsterdam</h1>`
+  );
 };
 
 
