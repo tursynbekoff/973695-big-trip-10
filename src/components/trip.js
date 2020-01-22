@@ -59,8 +59,6 @@ const getTripEvent = (trip) => {
                         </button>
                     </div>
                 </li>
-
-                
             </ul>
         </li>`
   );

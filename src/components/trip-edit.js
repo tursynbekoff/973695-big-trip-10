@@ -1,5 +1,5 @@
-import {MonthNames} from '../const.js';
 import {createElement} from '../utils.js';
+import {MonthNames} from '../const.js';
 
 const getOffersMarkup = (offers) => {
   return offers
@@ -35,17 +35,16 @@ const getTripEventEdit = (trip) => {
   const additionalOffers = getOffersMarkup(Array.from(options));
   const pictures = getPicturesMarkup(Array.from(pictureSrc));
   const monthName = MonthNames[startMonth];
+
   return (
-    `<ul class="trip-days">
-        <li class="trip-days__item  day">
-            <div class="day__info">
-                <span class="day__counter">1</span>
-                <time class="day__date" datetime="${startYear}-${startMonth}-${startDay}">${monthName} ${startDay}</time>
-            </div>
+    `<li class="trip-days__item  day">
+        <div class="day__info">
+        <span class="day__counter"></span>
+        <time class="day__date" datetime="${startYear}-${startMonth}-${startDay}">${monthName} ${startDay}</time>
+        </div>
 
-            <ul class="trip-events__list">
-
-                <li class="trip-events__item">
+        <ul class="trip-events__list">
+            <li class="trip-events__item">
                 <form class="event  event--edit" action="#" method="post">
                     <header class="event__header">
                     <div class="event__type-wrapper">
@@ -186,12 +185,9 @@ const getTripEventEdit = (trip) => {
                     </section>
                     </section>
                 </form>
-                </li>
-
-                
-            </ul>
-        </li>
-    </ul>`
+            </li>
+        </ul>
+    </li>`
   );
 };
 
