@@ -1,19 +1,18 @@
 import {createElement} from '../utils.js';
 
-const getTripInfo = function () {
+const getBoardContainer = () => {
   return (
-    `<h1 class="trip-info__title">Amsterdam &mdash; ... &mdash; Amsterdam</h1>`
+    `<ul class="trip-days"></ul>`
   );
 };
 
-
-export default class Header {
+export default class Board {
   constructor() {
     this._element = null;
   }
 
   getTemplate() {
-    return getTripInfo();
+    return getBoardContainer();
   }
 
   getElement() {
