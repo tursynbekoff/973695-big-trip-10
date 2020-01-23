@@ -48,10 +48,10 @@ const renderTrip = (tripListElement, trip) => {
     document.addEventListener(`keydown`, onEscKeyDown);
   });
 
-  
+
   const tripEditComponent = new TripEditComponent(trip);
   const editForm = tripEditComponent.getElement().querySelector(`form`);
-  
+
   editForm.addEventListener(`submit`, () => {
     replaceEditToTrip();
   });
@@ -83,11 +83,7 @@ if (isAllTripsDone) {
   render(filter, boradGeneration, RenderPosition.BEFOREEND);
   const tripListElement = document.querySelector(`.trip-days`);
   trips.slice(0, TRIP_COUNT).forEach((trip) => {
-    renderTrip(tripListElement , trip);
+    renderTrip(tripListElement, trip);
 
   });
 }
-
-
-
-
