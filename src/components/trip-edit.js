@@ -210,5 +210,5 @@ export default class TripEdit extends AbstractComponent {
   formSubmit(handler) {
     this.getElement().querySelector(`form`)
       .addEventListener(`submit`, handler);
-  }  
+  }
 }

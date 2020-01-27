@@ -66,7 +66,7 @@ const getTripEvent = (trip) => {
 
 export default class Trip extends AbstractComponent {
   constructor(trip) {
-    super(); 
+    super();
 
     this._trip = trip;
   }
