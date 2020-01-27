@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import AbstractComponent from './abstract-component.js';
 
 const getTripInfo = function () {
   return (
@@ -6,25 +6,8 @@ const getTripInfo = function () {
   );
 };
 
-
-export default class Header {
-  constructor() {
-    this._element = null;
-  }
-
+export default class Header extends AbstractComponent {
   getTemplate() {
     return getTripInfo();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

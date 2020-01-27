@@ -1,5 +1,5 @@
+import AbstractComponent from './abstract-component.js';
 import {MonthNames} from '../const.js';
-import {createElement} from '../utils.js';
 
 const getOffersMarkup = (offers) => {
   return offers
@@ -64,26 +64,19 @@ const getTripEvent = (trip) => {
   );
 };
 
-export default class Trip {
+export default class Trip extends AbstractComponent {
   constructor(trip) {
-    this._trip = trip;
+    super();
 
-    this._element = null;
+    this._trip = trip;
   }
 
   getTemplate() {
     return getTripEvent(this._trip);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setEditButtonClickHandler(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, handler);
   }
 }

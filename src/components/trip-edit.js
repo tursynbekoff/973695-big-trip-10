@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import AbstractComponent from './abstract-component.js';
 import {MonthNames} from '../const.js';
 
 const getOffersMarkup = (offers) => {
@@ -191,26 +191,24 @@ const getTripEventEdit = (trip) => {
   );
 };
 
-export default class TripEdit {
+export default class TripEdit extends AbstractComponent {
   constructor(trip) {
-    this._trip = trip;
+    super();
 
-    this._element = null;
+    this._trip = trip;
   }
 
   getTemplate() {
     return getTripEventEdit(this._trip);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  setCloseButtonClickHandler(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, handler);
   }
 
-  removeElement() {
-    this._element = null;
+  formSubmit(handler) {
+    this.getElement().querySelector(`form`)
+      .addEventListener(`submit`, handler);
   }
 }
