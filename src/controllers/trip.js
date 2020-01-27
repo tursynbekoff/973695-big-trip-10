@@ -1,4 +1,4 @@
-import EventsSortFormComponent from '../components/sort.js';
+import EventsSortFormComponent, {SortType} from '../components/sort.js';
 import TripEditComponent from '../components/trip-edit.js';
 import TripComponent from '../components/trip.js';
 import NoTripMsgComponent from '../components/no-trips.js';
@@ -44,6 +44,12 @@ const renderTrip = (tripListElement, trip) => {
   render(tripListElement, tripComponent, RenderPosition.BEFOREEND);
 };
 
+const renderTrips = (tripsListElement, trips) => {
+  trips.forEach((trip) => {
+    renderTrip(tripsListElement, trip);
+  });
+};
+
 export default class TripController {
   constructor(container) {
     this._container = container;
@@ -68,9 +74,27 @@ export default class TripController {
 
     const tripListElement = document.querySelector(`.trip-days`);
 
-    trips.slice(0, TRIPS_COUNT).forEach((trip) => {
-      renderTrip(tripListElement, trip);
-    });
 
+    renderTrips(tripListElement, trips.slice(0, TRIPS_COUNT));
+
+    this._sortComponent.setSortTypeChangeHandler((sortType) => {
+      let sortedTrips = [];
+
+      switch (sortType) {
+        case SortType.PRICE_DOWN:
+          sortedTrips = trips.slice().sort((a, b) => a.price - b.price);
+          break;
+        case SortType.TIME_DURATION:
+          sortedTrips = trips.slice().sort((a, b) => b.diffTotal - a.diffTotal);
+          break;
+        case SortType.DEFAULT_EVENT:
+          sortedTrips = trips.slice(0, TRIPS_COUNT);
+          break;
+      }
+
+      tripListElement.innerHTML = ``;
+
+      renderTrips(tripListElement, sortedTrips);
+    });
   }
 }

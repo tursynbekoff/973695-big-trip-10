@@ -172,6 +172,7 @@ const generateTrip = function () {
     diffMinute: getFormateMinutes(timeDiff.getMinutes()),
     diffHour: timeDiff.getHours() - 1,
     diffDay: timeDiff.getDate() - 1,
+    diffTotal: dateToInt(timeDiff),
 
     price,
     options: setOfOptions,

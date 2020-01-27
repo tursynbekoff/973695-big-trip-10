@@ -8,7 +8,7 @@ import TripController from './controllers/trip.js';
 import {generateTrips} from './mock/trip.js';
 import {RenderPosition, render} from './utils/render.js';
 
-const TRIP_COUNT = 3;
+const TRIP_COUNT = 5;
 const tripInfo = document.querySelector(`.trip-info`);
 const tripControlsMenu = document.querySelector(`.trip-controls`);
 const filter = document.querySelector(`.trip-events`);
