@@ -3,50 +3,15 @@ import TripEditComponent from '../components/trip-edit.js';
 import TripComponent from '../components/trip.js';
 import NoTripMsgComponent from '../components/no-trips.js';
 import {render, replace, RenderPosition} from '../utils/render.js';
+import PointController from './point.js';
 
-const renderTrip = (tripListElement, trip) => {
-  const onEscKeyDown = (evt) => {
-    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
 
-    if (isEscKey) {
-      replaceEditToTrip();
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    }
-  };
+const renderTrips = (tripsListElement, trips, onDataChange, onViewChange) => {
+  return trips.map((trip) => {
+    const pointController = new PointController(tripsListElement, onDataChange, onViewChange);
+    pointController.render(trip);
 
-  const replaceEditToTrip = () => {
-    replace(tripComponent, tripEditComponent);
-  };
-
-  const replaceTripToEdit = () => {
-    replace(tripEditComponent, tripComponent);
-  };
-
-  const tripComponent = new TripComponent(trip);
-
-  tripComponent.setEditButtonClickHandler(() => {
-    replaceTripToEdit();
-    document.addEventListener(`keydown`, onEscKeyDown);
-  });
-
-  const tripEditComponent = new TripEditComponent(trip);
-
-  replaceEditToTrip();
-
-  tripEditComponent.setCloseButtonClickHandler(() => {
-    replaceEditToTrip();
-  });
-
-  tripEditComponent.formSubmit(() => {
-    replaceEditToTrip();
-  });
-
-  render(tripListElement, tripComponent, RenderPosition.BEFOREEND);
-};
-
-const renderTrips = (tripsListElement, trips) => {
-  trips.forEach((trip) => {
-    renderTrip(tripsListElement, trip);
+    return pointController;
   });
 };
 

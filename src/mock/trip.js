@@ -157,12 +157,14 @@ const generateTrip = function () {
     activity,
     preposition,
 
+    startDate: dueDate,
     startMinute: getFormateMinutes(dueDate.getMinutes()),
     startHour: dueDate.getHours(),
     startDay: dueDate.getDate(),
     startMonth: dueDate.getMonth() + 1,
     startYear: dueDate.getYear() + 1900,
 
+    finallDate: finallDate,
     finallMinute: getFormateMinutes(finallDate.getMinutes()),
     finallHour: finallDate.getHours(),
     finallDay: finallDate.getDate(),
@@ -178,7 +180,8 @@ const generateTrip = function () {
     options: setOfOptions,
 
     description: getRandomText(textDescription),
-    pictureSrc: generateRandomPictures()
+    pictureSrc: generateRandomPictures(),
+    favorite: Math.random() >= 0.5
   };
 };
 

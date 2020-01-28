@@ -1,5 +1,5 @@
 import AbstractComponent from './abstract-component.js';
-import {MonthNames} from '../const.js';
+import {MONTH_NAMES} from '../const.js';
 
 const getOffersMarkup = (offers) => {
   return offers
@@ -19,7 +19,7 @@ const getTripEvent = (trip) => {
   const {city, preposition, activity, options, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price, diffDay, diffHour, diffMinute} = trip;
   const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1);
   const additionalOffers = getOffersMarkup(Array.from(options));
-  const monthName = MonthNames[startMonth];
+  const monthName = MONTH_NAMES[startMonth];
 
   return (
     `<li class="trip-days__item  day">

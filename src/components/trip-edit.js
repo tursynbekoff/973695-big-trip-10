@@ -1,5 +1,7 @@
-import AbstractComponent from './abstract-component.js';
-import {MonthNames} from '../const.js';
+import flatpickr from 'flatpickr';
+import AbstractComponent from './abstract-smart-component.js';
+import {MONTH_NAMES, TRIP_TYPE} from '../const.js';
+import {formatTime, formatDate} from '../utils/common.js';
 
 const getOffersMarkup = (offers) => {
   return offers
@@ -29,12 +31,22 @@ const getPicturesMarkup = (pictureSrc) => {
         .join(`\n`);
 };
 
-const getTripEventEdit = (trip) => {
-  const {city, preposition, activity, options, description, pictureSrc, startDay, startMonth, startYear, startHour, startMinute, finallDay, finallMonth, finallYear, finallHour, finallMinute, price} = trip;
+const getTripEventEdit = (trip, edits = {}) => {
+  const {city, preposition, activity, options, description, pictureSrc, startDate, startDay, startMonth, startYear, startHour, startMinute, finallDate, finallDay, finallMonth, finallYear, finallHour, finallMinute, price} = trip;
+  const {isArrivalDateShowing, isDepartureDateShowing} = edits;
+  console.log(edits);
+  const startingDate = (isArrivalDateShowing && startDate) ? formatDate(startDate) : ``;
+  const startingTime = (isArrivalDateShowing && startDate) ? formatTime(startDate) : ``;
+
+  const endingDate = (isDepartureDateShowing && finallDate) ? formatDate(startDate) : ``;
+  const endingTime = (isDepartureDateShowing && finallDate) ? formatTime(startDate) : ``;
+
+  console.log(isArrivalDateShowing);
+  
   const activityCapitalized = activity.charAt(0).toUpperCase() + activity.slice(1);
   const additionalOffers = getOffersMarkup(Array.from(options));
   const pictures = getPicturesMarkup(Array.from(pictureSrc));
-  const monthName = MonthNames[startMonth];
+  const monthName = MONTH_NAMES[startMonth];
 
   return (
     `<li class="trip-days__item  day">
@@ -131,12 +143,12 @@ const getTripEventEdit = (trip) => {
                         <label class="visually-hidden" for="event-start-time-1">
                         From
                         </label>
-                        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${startDay}/${startMonth}/${startYear} ${startHour}:${startMinute}">
+                        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${startingDate} ${startingTime}">
                         &mdash;
                         <label class="visually-hidden" for="event-end-time-1">
                         To
                         </label>
-                        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${finallDay}/${finallMonth}/${finallYear} ${finallHour}:${finallMinute}">
+                        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${endingDate} ${endingTime}">
                     </div>
 
                     <div class="event__field-group  event__field-group--price">
@@ -196,10 +208,31 @@ export default class TripEdit extends AbstractComponent {
     super();
 
     this._trip = trip;
+    this._favoriteTrip = Object.assign({}, trip.favorite);
+    this._flatpickr = null;
+  
+    this._applyFlatpickr();
+    this._subscribeOnEvents();
   }
 
   getTemplate() {
-    return getTripEventEdit(this._trip);
+    return getTripEventEdit(this._trip, );
+  }
+
+  recoveryListeners() {
+    this._subscribeOnEvents();
+  }
+
+  rerender() {
+    super.rerender();
+
+    this._applyFlatpickr();
+  }
+
+  reset() {
+    const trip = this._trip;
+
+    this.rerender();
   }
 
   setCloseButtonClickHandler(handler) {
@@ -207,8 +240,46 @@ export default class TripEdit extends AbstractComponent {
       .addEventListener(`click`, handler);
   }
 
-  formSubmit(handler) {
+  formSubmitHandler(handler) {
     this.getElement().querySelector(`form`)
       .addEventListener(`submit`, handler);
   }
+
+  _applyFlatpickr() {
+    if (this._flatpickr) {
+      // При своем создании `flatpickr` дополнительно создает вспомогательные DOM-элементы.
+      // Что бы их удалять, нужно вызывать метод `destroy` у созданного инстанса `flatpickr`.
+      this._flatpickr.destroy();
+      this._flatpickr = null;
+    }
+
+    if (this._isDateShowing) {
+      const dateElement = this.getElement().querySelector(`.event__input--time`);
+      this._flatpickr = flatpickr(dateElement, {
+        altInput: true,
+        allowInput: true,
+        defaultDate: this._trip.start,
+      });
+    }
+  }
+
+  _subscribeOnEvents() {
+    const element = this.getElement();
+
+    element.querySelector(`#event-start-time-1`)
+      .addEventListener(`click`, () => {
+        this._isDateShowing = !this._isDateShowing;
+
+        this.rerender();
+      });
+
+    element.querySelector(`#event-end-time-1`)
+      .addEventListener(`click`, () => {
+        this._isDateShowing = !this._isDateShowing;
+
+        this.rerender();
+      });
+
+  }
+
 }

@@ -1,4 +1,4 @@
-export const MonthNames = {
+export const MONTH_NAMES = {
   '1': `JAN`,
   '2': `FEB`,
   '3': `MAR`,
@@ -12,3 +12,16 @@ export const MonthNames = {
   '11': `NOV`,
   '12': `DEC`,
 };
+
+export const TRIP_TYPE = [
+  'taxi',
+  'bus',
+  'train',
+  'ship',
+  'transport',
+  'drive',
+  'flight',
+  'check-in',
+  'sightseeing',
+  'restaurant'
+];
