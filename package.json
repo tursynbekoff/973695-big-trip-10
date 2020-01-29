@@ -11,17 +11,22 @@
     "fix-js": "eslint-auto-fix"
   },
   "devDependencies": {
+    "css-loader": "3.3.0",
     "eslint": "6.1.0",
     "eslint-auto-fix": "^1.0.1",
     "eslint-config-htmlacademy": "0.5.2",
+    "moment-locales-webpack-plugin": "1.1.2",
+    "style-loader": "1.0.1",
     "webpack": "4.41.5",
-    "webpack-cli": "3.3.10"
+    "webpack-cli": "3.3.10",
+    "webpack-dev-server": "3.10.1",
+    "eslint-formatter-pretty": "^3.0.1"
   },
   "engines": {
     "node": "10"
   },
   "dependencies": {
-    "eslint-formatter-pretty": "^3.0.1",
-    "webpack-dev-server": "3.10.1"
+    "flatpickr": "4.6.3",
+    "moment": "2.24.0"
   }
 }
