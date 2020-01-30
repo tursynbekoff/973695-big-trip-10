@@ -4,7 +4,7 @@ import {render, replace, RenderPosition} from '../utils/render.js';
 
 const Mode = {
     DEFAULT: `default`,
-    EDIt: `edit`
+    EDIT: `edit`
 }
 
 export default class PointController {
@@ -32,7 +32,11 @@ export default class PointController {
     });
 
     this._tripEditComponent.formSubmitHandler(() => {
-        _replaceEditToTrip();
+        this.setDefaultView()
+    });
+
+    this._tripEditComponent.setCloseButtonClickHandler(() => {
+        this._replaceEditToTrip();
     });
 
     if (oldTripEditComponent && oldTripComponent) {
@@ -65,7 +69,7 @@ export default class PointController {
   }
     
   _replaceTripToEdit() {
-    //   this._onViewChange();
+    this._onViewChange();
     replace(this._tripEditComponent, this._tripComponent);
     this._mode = Mode.EDIT;
   }
